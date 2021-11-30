@@ -9,10 +9,12 @@ db = SQLAlchemy(app)
 class Product(db.Model):
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, unique=True)
     name = db.Column(db.String(20), unique=True)
+    brand = db.Column(db.String(20), unique=True)
     price = db.Column(db.Float) 
     
-    def __init__ (self, name, price):
+    def __init__ (self, name, brand, price):
         self.name = name
+        self.brand = brand
         self.price = price
 
 @app.route('/')
