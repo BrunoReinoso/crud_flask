@@ -1,8 +1,9 @@
+from itertools import product
 from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder='templates')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:admin@localhost/flask'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.sqlite'
 
 db = SQLAlchemy(app)
 
@@ -19,7 +20,24 @@ class Product(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    products = Product.query.all()
+    return render_template('index.html', products=products)
+
+@app.route('/add', methods=['GET','POST'])
+def add():
+    if request.method == 'POST':
+        product = Product(request.form['name'], request.form['brand'], request.form['price'])
+        db.session.add(product)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add.html')
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    product = Product.query.get(id)
+    db.session.delete(product)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     db.create_all()
