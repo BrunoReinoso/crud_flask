@@ -1,5 +1,3 @@
-from itertools import product
-
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
