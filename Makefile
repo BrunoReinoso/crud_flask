@@ -21,3 +21,16 @@ docker-compose-stop: clean  ## Stop docker-compose for development environment
 
 docker-compose-rm: docker-compose-stop ## Delete the development environment containers
 	@docker-compose rm -f
+
+requirements-pip:  ## Install the APP requirements
+	@pip install --upgrade pip
+	@pip install -r requirements/base.txt
+	@pip install -r requirements/development.txt
+
+format:  ## Run black auto formatting code style in the project
+	@black app.py
+
+lint: clean  ## Run pylint linter
+	@printf '\n --- \n >>> Running linter...<<<\n'
+	@pylint --rcfile=.pylintrc  app.py --errors-only
+	@printf '\n FINISHED! \n --- \n'

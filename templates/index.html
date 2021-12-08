@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="= X-UA-Compatible" content="ie=edge">
+        <title>Product</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <h1 style="text-align: center;">Products - CRUD</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/add">New Product</a>
+                </div>
+                <div class="col-xs-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Brand</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in products %}
+                            <tr>
+                                <td>{{p.name}}</td>
+                                <td>{{p.brand}}</td>
+                                <td>{{p.price}}</td>
+                                <td>
+                                    <a href="/edit/{{p.id}}">Edit</a>
+                                    <a href="/delete/{{p.id}}">Delete</a>
+                                </td>       
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
