@@ -14,6 +14,10 @@ Then, we recommend installing pyenv and pyenv-virtualenv, install python 3.8.0 o
 
 Alternatively, in case you need, there are also commands in the Makefile to build and run the containers for the app.
 
+### Requisitions to api
+
+  The requisitions were made with Postman but you can use other program if you want.
+
 
 ## Installation
 
@@ -35,11 +39,12 @@ Alternatively, in case you need, there are also commands in the Makefile to buil
   make docker-compose-up
 ```
 
-### How to run
+### How to run app
 
 ```bash
     python app.py
 ```
+
 
 # Author
 

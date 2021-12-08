@@ -1,23 +1,10 @@
 from flask import Flask, redirect, render_template, request, url_for
-from flask_sqlalchemy import SQLAlchemy
+from models import db, Product
+from api import api
 
 app = Flask(__name__, template_folder="templates")
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:admin@localhost/flask"
-
-db = SQLAlchemy(app)
-
-
-class Product(db.Model):
-    id = db.Column("id", db.Integer, primary_key=True, autoincrement=True, unique=True)
-    name = db.Column(db.String(20), unique=True)
-    brand = db.Column(db.String(20))
-    price = db.Column(db.Float)
-
-    def __init__(self, name, brand, price):
-        self.name = name
-        self.brand = brand
-        self.price = price
-
+app.register_blueprint(api, url_prefix="/api")
 
 @app.route("/")
 def index():
@@ -58,5 +45,7 @@ def edit(id):
 
 
 if __name__ == "__main__":
-    db.create_all()
+    db.init_app(app=app)
+    with app.test_request_context():
+        db.create_all()
     app.run(debug=True)
